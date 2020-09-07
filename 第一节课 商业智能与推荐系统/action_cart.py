@@ -27,13 +27,15 @@ plt.show()
 # 分割数据，将25%的数据作为测试集，其余作为训练集
 train_x, test_x, train_y, test_y = train_test_split(data, digits.target, test_size=0.25, random_state=33)
 
+
+# 决策树的输入数据其实不需要标准化，决策树只用到数据相对大小
 # 采用Z-Score规范化
-ss = preprocessing.StandardScaler()
-train_ss_x = ss.fit_transform(train_x)
-test_ss_x = ss.transform(test_x)
+# ss = preprocessing.StandardScaler()
+# train_ss_x = ss.fit_transform(train_x)
+# test_ss_x = ss.transform(test_x)
 
 
 clf = DecisionTreeClassifier(criterion='gini')
-clf.fit(train_ss_x, train_y)
-predict_y = clf.predict(test_ss_x)
+clf.fit(train_x, train_y)
+predict_y = clf.predict(test_x)
 print('LR准确率: %0.4lf' % accuracy_score(predict_y, test_y))
